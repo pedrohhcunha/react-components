@@ -1,38 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Backdrop } from '../../components/Backdrop';
 import { Button } from '../../components/Button';
-import { Modal } from '../../components/Modal';
-import { ModalBody } from '../../components/Modal/Body';
-import { ModalFooter } from '../../components/Modal/Footer';
-import { ModalHeader } from '../../components/Modal/Header';
+import { Spinner } from '../../components/Spinner/Spinner';
 import styles from './styles.module.scss';
 
 export function Home(): JSX.Element {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleStopLoading = () => {
+    setIsLoading(false);
+  }
+  
+  const handleStartLoading = () => {
+    setIsLoading(true);
+    setTimeout(handleStopLoading, 5000)
+  };
 
   return (
     <main className={styles.main}>
       <Button
-        onClick={() => setModalIsOpen(true)}
+        onClick={handleStartLoading}
       >
-        Open Modal
+        Start loading
       </Button>
-      <Modal
-        active={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        position='top-center'
-        backdropBlur
-        animation='shake'
+      <Backdrop
+        active={isLoading}
       >
-        <ModalHeader>
-          Modal Header
-        </ModalHeader>
-        <ModalBody>
-          Modal Body
-        </ModalBody>
-        <ModalFooter>
-          Modal Footer
-        </ModalFooter>
-      </Modal>
+        <Spinner />
+      </Backdrop>
     </main>
   )
 }

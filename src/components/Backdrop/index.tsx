@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 interface Props {
     children: React.ReactNode;
     active?: boolean;
-    onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
     position?: 'center' | 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
     blur?: boolean;
     noPadding?: boolean;
